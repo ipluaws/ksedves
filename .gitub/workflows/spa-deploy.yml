@@ -3,7 +3,7 @@ name: Deploy SPA
 on:
   push:
     paths:
-      - 'spa/**'  # Trigger only if changes are in the frontend folder
+      - 'spa/**'
     branches:
       - main
 jobs:
