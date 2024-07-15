@@ -3,7 +3,7 @@ name: Deploy SPA
 on:
   push:
     paths:
-      - spa/**
+      - 'spa/**'
 
 jobs:
   build-and-deploy:
