@@ -17,12 +17,15 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
+        working-directory: ./spa
 
     - name: Install dependencies
       run: npm install
+      working-directory: ./spa
 
     - name: Build the app
       run: npm run build
+      working-directory: ./spa
 
     - name: Upload to S3
       run: |
