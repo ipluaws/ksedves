@@ -2,9 +2,7 @@ name: backend-ci
 
 on:
   push:
-    paths:
-      - 'backend/**'
-      - '.github/workflows/**'
+    paths: ['backend/**']
 jobs:
   deploy:
     runs-on: ubuntu-latest
