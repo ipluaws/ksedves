@@ -2,10 +2,10 @@ name: Deploy SPA
 
 on:
   push:
-    paths:
-      - 'spa/**'  # Trigger on any changes under the spa directory
     branches:
       - main
+    paths:
+      - 'spa/**'
 
 jobs:
   build-and-deploy:
