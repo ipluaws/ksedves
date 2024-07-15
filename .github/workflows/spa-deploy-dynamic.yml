@@ -2,10 +2,11 @@ name: spa-deploy-dynamic
 
 on:
   push:
-    paths:
-      - 'spa/**'
     branches:
       - main
+    paths:
+      - 'spa/**'
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -19,11 +20,13 @@ jobs:
 
     - name: Initialize Terraform
       run: terraform init
+      working-directory: ./spa  # Ensure you're in the correct directory
 
     - name: Get Terraform Outputs
       id: terraform-outputs
       run: |
         terraform output -json > outputs.json
+      working-directory: ./spa
 
     - name: Parse Terraform Outputs
       id: parse-outputs
@@ -32,17 +35,21 @@ jobs:
         CLOUDFRONT_DISTRIBUTION_ID=$(jq -r .cloudfront_distribution_id.value outputs.json)
         echo "S3_BUCKET_NAME=${S3_BUCKET_NAME}" >> $GITHUB_ENV
         echo "CLOUDFRONT_DISTRIBUTION_ID=${CLOUDFRONT_DISTRIBUTION_ID}" >> $GITHUB_ENV
+      working-directory: ./spa
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '14'
+      working-directory: ./spa
 
     - name: Install dependencies
       run: npm install
+      working-directory: ./spa
 
     - name: Build the app
       run: npm run build
+      working-directory: ./spa
 
     - name: Upload to S3
       run: |
@@ -51,6 +58,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
+      working-directory: ./spa
 
     - name: Invalidate CloudFront cache
       run: |
@@ -59,3 +67,4 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
+      working-directory: ./spa
