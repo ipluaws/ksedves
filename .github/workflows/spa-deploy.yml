@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - 'spa/**'
-      - '.github/workflows/**'
 
 jobs:
   build-and-deploy:
