@@ -29,15 +29,13 @@ jobs:
       id: terraform-outputs
       run: |
         terraform output -json > outputs.json
-        cat outputs.json
       working-directory: ./spa
 
     - name: Parse Terraform Outputs
       id: parse-outputs
       run: |
-        cat outputs.json
-        S3_BUCKET_NAME=$(jq -r '.s3_bucket_name.value' outputs.json)
-        CLOUDFRONT_DISTRIBUTION_ID=$(jq -r '.cloudfront_distribution_id.value' outputs.json)
+        S3_BUCKET_NAME=$(jq -r '.outputs.s3_bucket_name.value' outputs.json)
+        CLOUDFRONT_DISTRIBUTION_ID=$(jq -r '.outputs.cloudfront_distribution_id.value' outputs.json)
         echo "S3_BUCKET_NAME=${S3_BUCKET_NAME}" >> $GITHUB_ENV
         echo "CLOUDFRONT_DISTRIBUTION_ID=${CLOUDFRONT_DISTRIBUTION_ID}" >> $GITHUB_ENV
       working-directory: ./spa
