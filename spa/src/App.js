@@ -18,7 +18,6 @@ function App() {
       setBackendMessage('Failed to fetch message from backend');
     }
   };
-
   return (
     <div className="App">
       <header className="App-header">
