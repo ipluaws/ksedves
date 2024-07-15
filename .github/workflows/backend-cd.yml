@@ -20,6 +20,7 @@ jobs:
         aws-region: 'eu-central-1'
 
     - name: Deploy to ECS
+      working-directory: ./backend
       run: |
         echo "Deploying to ECS Cluster..."
         aws ecs update-service --cluster demo-cluster --service demo-service --force-new-deployment
