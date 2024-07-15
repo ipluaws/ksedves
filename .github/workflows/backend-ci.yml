@@ -19,8 +19,10 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: 'adopt'
 
       - name: Build with Maven
+        working-directory: ./backend
         run: mvn clean install -DskipTests=true
 
       - name: Login to Amazon ECR
