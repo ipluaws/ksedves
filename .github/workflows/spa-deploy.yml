@@ -2,10 +2,8 @@ name: Deploy SPA
 
 on:
   push:
-    branches:
-      - main
     paths:
-      - 'spa/**'
+      - spa/**
 
 jobs:
   build-and-deploy:
