@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'spa/**'
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
