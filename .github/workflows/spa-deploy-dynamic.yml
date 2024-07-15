@@ -22,22 +22,22 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Initialize Terraform
-      run: terraform init
-      working-directory: ./spa  # Ensure you're in the correct directory
+      run: terraform init ./infra
+      working-directory: ./infra  # Ensure you're in the correct directory
 
     - name: Get Terraform Outputs
       id: terraform-outputs
       run: |
-        terraform output -json > outputs.json
-      working-directory: ./spa
+        terraform output -json > ../spa/outputs.json
+      working-directory: ./infra
 
     - name: Parse Terraform Outputs
       id: parse-outputs
       run: |
-        S3_BUCKET_NAME=$(jq -r '.outputs.s3_bucket_name.value' outputs.json)
-        CLOUDFRONT_DISTRIBUTION_ID=$(jq -r '.outputs.cloudfront_distribution_id.value' outputs.json)
-        echo "S3_BUCKET_NAME=${S3_BUCKET_NAME}" >> $GITHUB_ENV
-        echo "CLOUDFRONT_DISTRIBUTION_ID=${CLOUDFRONT_DISTRIBUTION_ID}" >> $GITHUB_ENV
+        S3_BUCKET_NAME=$(jq -r '.outputs.s3_bucket_name.value' ../spa/outputs.json)
+        CLOUDFRONT_DISTRIBUTION_ID=$(jq -r '.outputs.cloudfront_distribution_id.value' ../spa/outputs.json)
+        echo "S3_BUCKET_NAME=${S3_BUCKET_NAME}" >> ../spa/$GITHUB_ENV
+        echo "CLOUDFRONT_DISTRIBUTION_ID=${CLOUDFRONT_DISTRIBUTION_ID}" >> ../spa/$GITHUB_ENV
       working-directory: ./spa
 
     - name: Set up Node.js
