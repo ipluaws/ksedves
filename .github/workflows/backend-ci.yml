@@ -3,10 +3,8 @@ name: backend-ci
 on:
   push:
     paths:
-      - 'backend/**'  # Trigger only if changes are in the backend folder
-    branches:
-      - main
-
+      - 'backend/**'
+      - '.github/workflows/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
