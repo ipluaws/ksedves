@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("https://dv5o0xxr7paq7.cloudfront.net/");
+                        .allowedOrigins("https://dowgwaty8ycf1.cloudfront.net/");
             }
         };
     }
